@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Boston Prime - Temporal Metropolitan Zone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, 
+                #0a0a1a 0%, 
+                #1a1a3e 25%,
+                #0d1b2a 50%,
+                #2e1a3e 75%,
+                #0a0a1a 100%);
+            color: #00d4ff;
+            overflow: hidden;
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            animation: worldPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes worldPulse {
+            0%, 100% { background-size: 100% 100%; }
+            50% { background-size: 120% 120%; }
+        }
+
+        .world-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.95) 0%, 
+                rgba(13, 27, 42, 0.9) 50%,
+                rgba(46, 26, 62, 0.85) 100%);
+            padding: 15px 20px 10px 20px;
+            border-bottom: 3px solid #00d4ff;
+            text-align: center;
+            flex-shrink: 0;
+            box-shadow: 
+                0 4px 20px rgba(0, 212, 255, 0.3),
+                0 0 50px rgba(46, 26, 62, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 212, 255, 0.1) 50%, 
+                transparent 100%);
+            animation: scanLine 8s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: 18px;
+            text-shadow: 
+                0 0 15px #00d4ff,
+                0 0 30px rgba(0, 212, 255, 0.7);
+            animation: titleGlow 4s ease-in-out infinite alternate;
+            margin-bottom: 5px;
+            color: #87ceeb;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header .status {
+            font-size: 10px;
+            color: #4169e1;
+            opacity: 0.9;
+            text-shadow: 0 0 8px rgba(65, 105, 225, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                text-shadow: 
+                    0 0 15px #00d4ff, 
+                    0 0 25px rgba(0, 212, 255, 0.5),
+                    0 0 35px rgba(135, 206, 235, 0.3);
+            }
+            50% { 
+                text-shadow: 
+                    0 0 25px #87ceeb, 
+                    0 0 35px rgba(135, 206, 235, 0.7),
+                    0 0 45px rgba(65, 105, 225, 0.5);
+            }
+            100% { 
+                text-shadow: 
+                    0 0 20px #4169e1, 
+                    0 0 30px rgba(65, 105, 225, 0.6),
+                    0 0 40px rgba(0, 212, 255, 0.4);
+            }
+        }
+
+        .control-panel {
+            display: flex;
+            background: linear-gradient(90deg, 
+                rgba(0, 0, 0, 0.9) 0%, 
+                rgba(13, 27, 42, 0.85) 50%,
+                rgba(0, 0, 0, 0.9) 100%);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.4);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .control-panel::-webkit-scrollbar { display: none; }
+
+        .control-btn {
+            min-width: 90px;
+            padding: 12px 10px;
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.08) 0%, 
+                rgba(65, 105, 225, 0.05) 100%);
+            border-right: 1px solid rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            text-align: center;
+            font-size: 9px;
+            font-weight: bold;
+            white-space: nowrap;
+            text-shadow: 0 0 6px rgba(0, 212, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .control-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(0, 212, 255, 0.3) 50%,
+                transparent 100%);
+            transition: left 0.6s ease;
+        }
+
+        .control-btn:hover::before,
+        .control-btn.active::before {
+            left: 0;
+        }
+
+        .control-btn.active {
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.25) 0%, 
+                rgba(65, 105, 225, 0.15) 100%);
+            box-shadow: 
+                inset 0 3px 0 #00d4ff,
+                0 0 15px rgba(0, 212, 255, 0.3);
+            color: #87ceeb;
+            text-shadow: 0 0 10px rgba(135, 206, 235, 0.6);
+        }
+
+        .map-area {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(13, 27, 42, 0.9) 40%,
+                rgba(0, 0, 0, 0.95) 100%);
+        }
+
+        .city-map {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 3px;
+            padding: 15px;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .sector {
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.7) 0%, 
+                rgba(13, 27, 42, 0.6) 50%,
+                rgba(0, 0, 0, 0.8) 100%);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            border-radius: 20px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(0, 212, 255, 0.1),
+                inset 0 1px 0 rgba(0, 212, 255, 0.2);
+        }
+
+        .sector::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent 0deg,
+                rgba(0, 212, 255, 0.1) 180deg,
+                transparent 360deg);
+            animation: rotate 20s linear infinite;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .sector:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .sector:hover {
+            transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+            border-color: rgba(0, 212, 255, 0.8);
+            box-shadow: 
+                0 15px 50px rgba(0, 0, 0, 0.6),
+                0 0 40px rgba(0, 212, 255, 0.4),
+                inset 0 2px 0 rgba(0, 212, 255, 0.4);
+        }
+
+        .sector.tapped {
+            transform: scale(0.95);
+            filter: brightness(1.3);
+        }
+
+        .sector-number {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #00d4ff;
+            text-shadow: 
+                0 0 10px rgba(0, 212, 255, 0.8),
+                0 0 20px rgba(0, 212, 255, 0.4);
+            z-index: 2;
+        }
+
+        .sector-name {
+            font-size: 12px;
+            font-weight: bold;
+            color: #87ceeb;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px rgba(135, 206, 235, 0.6);
+            z-index: 2;
+            position: relative;
+        }
+
+        .sector-desc {
+            font-size: 8px;
+            color: rgba(135, 206, 235, 0.8);
+            line-height: 1.3;
+            padding: 0 10px;
+            text-shadow: 0 0 4px rgba(135, 206, 235, 0.3);
+            z-index: 2;
+            position: relative;
+        }
+
+        .sector-status {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00d4ff 0%, #4169e1 100%);
+            box-shadow: 
+                0 0 15px #00d4ff,
+                0 0 25px rgba(0, 212, 255, 0.6);
+            animation: sectorPulse 3s infinite;
+            z-index: 2;
+        }
+
+        @keyframes sectorPulse {
+            0%, 100% { 
+                opacity: 1; 
+                transform: scale(1);
+                box-shadow: 
+                    0 0 15px #00d4ff,
+                    0 0 25px rgba(0, 212, 255, 0.6);
+            }
+            50% { 
+                opacity: 0.7;
+                transform: scale(1.4);
+                box-shadow: 
+                    0 0 25px #87ceeb,
+                    0 0 35px rgba(135, 206, 235, 0.8);
+            }
+        }
+
+        /* Special sector styling */
+        .sector.central {
+            background: linear-gradient(135deg, 
+                rgba(65, 105, 225, 0.2) 0%, 
+                rgba(0, 0, 0, 0.8) 50%,
+                rgba(65, 105, 225, 0.15) 100%);
+            border-color: rgba(65, 105, 225, 0.8);
+            grid-column: 2;
+            grid-row: 2;
+        }
+
+        .sector.central .sector-status {
+            background: radial-gradient(circle, #4169e1 0%, #6495ed 100%);
+            box-shadow: 
+                0 0 20px #4169e1,
+                0 0 35px rgba(65, 105, 225, 0.8);
+        }
+
+        .sector.wasteland {
+            background: linear-gradient(135deg, 
+                rgba(139, 69, 19, 0.3) 0%, 
+                rgba(0, 0, 0, 0.9) 50%,
+                rgba(139, 69, 19, 0.2) 100%);
+            border-color: rgba(139, 69, 19, 0.6);
+        }
+
+        .sector.wasteland .sector-status {
+            background: radial-gradient(circle, #8b4513 0%, #cd853f 100%);
+            box-shadow: 
+                0 0 15px #8b4513,
+                0 0 25px rgba(139, 69, 19, 0.6);
+        }
+
+        .info-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, 
+                rgba(0, 0, 0, 0.98) 0%, 
+                rgba(13, 27, 42, 0.96) 50%,
+                rgba(26, 26, 62, 0.94) 100%);
+            backdrop-filter: blur(30px);
+            z-index: 1000;
+            transform: translateY(100%) rotateX(90deg);
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            border-top: 4px solid #00d4ff;
+            box-shadow: 
+                0 0 100px rgba(0, 212, 255, 0.3),
+                inset 0 2px 0 rgba(0, 212, 255, 0.2);
+        }
+
+        .info-panel.active {
+            transform: translateY(0) rotateX(0deg);
+        }
+
+        .info-header {
+            padding: 25px 20px;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            background: linear-gradient(90deg, 
+                rgba(0, 212, 255, 0.05) 0%, 
+                transparent 50%,
+                rgba(0, 212, 255, 0.05) 100%);
+        }
+
+        .info-title {
+            color: #00d4ff;
+            font-size: 16px;
+            font-weight: bold;
+            text-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .close-info-btn {
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.2) 0%, 
+                rgba(65, 105, 225, 0.15) 100%);
+            border: 2px solid rgba(0, 212, 255, 0.6);
+            color: #00d4ff;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 11px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .close-info-btn:active {
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.4) 0%, 
+                rgba(65, 105, 225, 0.3) 100%);
+            transform: scale(0.95);
+        }
+
+        .info-content {
+            flex: 1;
+            padding: 25px 20px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 212, 255, 0.5) transparent;
+        }
+
+        .info-content::-webkit-scrollbar { width: 4px; }
+        .info-content::-webkit-scrollbar-track { background: transparent; }
+        .info-content::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, #00d4ff, #4169e1);
+            border-radius: 2px;
+        }
+
+        .info-description {
+            color: rgba(135, 206, 235, 0.95);
+            font-size: 13px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .info-specs {
+            border-top: 2px solid rgba(0, 212, 255, 0.25);
+            padding-top: 25px;
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.03) 0%, 
+                transparent 100%);
+            border-radius: 15px;
+            margin-top: 20px;
+            padding: 25px 20px;
+        }
+
+        .spec-section {
+            margin-bottom: 25px;
+        }
+
+        .spec-section h3 {
+            color: #00d4ff;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            font-size: 11px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        .spec-label {
+            color: #00d4ff;
+            font-weight: bold;
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+        }
+
+        .spec-value {
+            color: rgba(135, 206, 235, 0.9);
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .danger-warning {
+            background: linear-gradient(135deg,
+                rgba(220, 20, 60, 0.2) 0%,
+                rgba(139, 0, 0, 0.1) 100%);
+            border: 1px solid rgba(220, 20, 60, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #ff6b6b;
+            font-size: 12px;
+            text-shadow: 0 0 6px rgba(255, 107, 107, 0.4);
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: radial-gradient(circle, #00d4ff 0%, #4169e1 100%);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+        }
+
+        @keyframes float {
+            0% { 
+                transform: translateY(100vh) translateX(0) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100px) translateX(200px) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .quantum-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridPulse 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        .help-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.25) 0%, 
+                rgba(65, 105, 225, 0.2) 100%);
+            border: 3px solid #00d4ff;
+            color: #00d4ff;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 11px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: helpFloat 6s ease-in-out infinite;
+            z-index: 100;
+            backdrop-filter: blur(15px);
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+            box-shadow: 
+                0 0 30px rgba(0, 212, 255, 0.4),
+                0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes helpFloat {
+            0%, 100% { 
+                transform: translateY(0) rotateZ(0deg);
+                box-shadow: 
+                    0 0 30px rgba(0, 212, 255, 0.4),
+                    0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+            50% { 
+                transform: translateY(-10px) rotateZ(5deg);
+                box-shadow: 
+                    0 0 40px rgba(0, 212, 255, 0.6),
+                    0 15px 35px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .help-btn:active {
+            transform: scale(0.9);
+        }
+
+        .mode-indicator {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg,
+                rgba(0, 212, 255, 0.2) 0%,
+                rgba(65, 105, 225, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 10px;
+            color: #87ceeb;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+
+        .data-stream {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                #00d4ff 50%,
+                transparent 100%);
+            animation: dataFlow 2s linear infinite;
+        }
+
+        @keyframes dataFlow {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <div class="world-container">
+        <div class="header">
+            <h1>BOSTON PRIME TMZ</h1>
+            <div class="status">TEMPORAL METROPOLITAN ZONE • CHRONOS CONTROL ACTIVE • POPULATION: 2.7M</div>
+        </div>
+
+        <div class="control-panel">
+            <div class="control-btn active" data-mode="overview">OVERVIEW</div>
+            <div class="control-btn" data-mode="security">SECURITY</div>
+            <div class="control-btn" data-mode="population">POPULATION</div>
+            <div class="control-btn" data-mode="temporal">TEMPORAL</div>
+            <div class="control-btn" data-mode="infrastructure">INFRASTRUCTURE</div>
+            <div class="control-btn" data-mode="economy">ECONOMY</div>
+        </div>
+
+        <div class="map-area">
+            <div class="quantum-grid"></div>
+            <div class="mode-indicator" id="modeIndicator">OVERVIEW MODE</div>
+            <div class="data-stream"></div>
+            
+            <div class="city-map" id="cityMap">
+                <!-- Sector 1 - Central Command -->
+                <div class="sector central" data-sector="1">
+                    <div class="sector-number">1</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">CENTRAL COMMAND</div>
+                    <div class="sector-desc">CHRONOS HQ • Master Clock • Executive Zone</div>
+                </div>
+
+                <!-- Sector 2 - Research District -->
+                <div class="sector" data-sector="2">
+                    <div class="sector-number">2</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">RESEARCH DISTRICT</div>
+                    <div class="sector-desc">Quantum Labs • Temporal Research • Innovation Hub</div>
+                </div>
+
+                <!-- Sector 3 - Elite Residential -->
+                <div class="sector" data-sector="3">
+                    <div class="sector-number">3</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">ELITE RESIDENTIAL</div>
+                    <div class="sector-desc">Luxury Housing • Temporal Gardens • High Society</div>
+                </div>
+
+                <!-- Sector 4 - General Residential -->
+                <div class="sector" data-sector="4">
+                    <div class="sector-number">4</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">GENERAL RESIDENTIAL</div>
+                    <div class="sector-desc">Main Population • Y/N's Workplace • Daily Life</div>
+                </div>
+
+                <!-- Sector 5 - Manufacturing -->
+                <div class="sector" data-sector="5">
+                    <div class="sector-number">5</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">MANUFACTURING</div>
+                    <div class="sector-desc">Production • Chrono-Sync Factory • Industrial</div>
+                </div>
+
+                <!-- Sector 6 - Agricultural -->
+                <div class="sector" data-sector="6">
+                    <div class="sector-number">6</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">AGRICULTURAL ZONE</div>
+                    <div class="sector-desc">Time-Accelerated Farming • Food Production</div>
+                </div>
+
+                <!-- Sector 7 - Containment -->
+                <div class="sector" data-sector="7">
+                    <div class="sector-number">7</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">TEMPORAL CONTAINMENT</div>
+                    <div class="sector-desc">Erasure Processing • Outlier Detention • Classified</div>
+                </div>
+
+                <!-- Sector 8 - Outer Boundary -->
+                <div class="sector" data-sector="8">
+                    <div class="sector-number">8</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">OUTER BOUNDARY</div>
+                    <div class="sector-desc">Buffer Zone • Transit Gates • Wasteland Edge</div>
+                </div>
+
+                <!-- Quantum Wasteland -->
+                <div class="sector wasteland" data-sector="wasteland">
+                    <div class="sector-number">⚠</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">QUANTUM WASTELAND</div>
+                    <div class="sector-desc">Reality Distortions • Temporal Storms • Forbidden</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-panel" id="infoPanel">
+            <div class="info-header">
+                <div class="info-title" id="infoTitle">SECTOR INFORMATION</div>
+                <button class="close-info-btn" onclick="closeInfo()">CLOSE</button>
+            </div>
+            <div class="info-content">
+                <div class="info-description" id="infoDescription">
+                    Select a sector to view detailed information about the area.
+                </div>
+                <div class="info-specs" id="infoSpecs"></div>
+            </div>
+        </div>
+
+        <button class="help-btn" onclick="toggleHelp()">
+            WORLD<br>GUIDE
+        </button>
+
+        <div class="floating-particles" id="particles"></div>
+    </div>
+
+    <script>
+        const sectorData = {
+            '1': {
+                title: 'SECTOR 1 - CENTRAL COMMAND',
+                description: 'The nerve center of CHRONOS control. Here lies the Master Clock, the physical nexus that maintains the artificial 24-hour cycle across all reality. Only the highest-ranking officials have access to this ultra-secured zone where time itself is controlled.',
+                specs: {
+                    'Security Classification': 'ULTRA SECRET',
+                    'Population': '3,247 (Elite Personnel Only)',
+                    'Temporal Stability': '99.97%',
+                    'Master Clock Status': 'OPERATIONAL',
+                    'Reality Anchors': '847 Active Units',
+                    'Access Level': 'Director+ Only',
+                    'Power Consumption': '23.7MW Continuous',
+                    'Threat Level': 'MAXIMUM SECURITY'
+                },
+                stats: {
+                    security: 100,
+                    population: 15,
+                    temporal: 100,
+                    infrastructure: 95,
+                    economy: 90
+                }
+            },
+            '2': {
+                title: 'SECTOR 2 - RESEARCH DISTRICT',
+                description: 'The scientific heart of Boston Prime. Quantum laboratories push the boundaries of temporal science while reality testing chambers ensure no anomalies escape detection. Blue-tinted windows filter specific wavelengths that could destabilize temporal fields.',
+                specs: {
+                    'Security Classification': 'SECRET',
+                    'Population': '47,823 (Scientists & Support)',
+                    'Temporal Stability': '97.2%',
+                    'Active Research Projects': '1,847',
+                    'Quantum Labs': '73 Facilities',
+                    'Blue Light Filtering': '99.3% Effective',
+                    'Oxygen Enhancement': '+3.1% Above Standard',
+                    'Innovation Index': '847.3 (Very High)'
+                },
+                stats: {
+                    security: 85,
+                    population: 35,
+                    temporal: 90,
+                    infrastructure: 100,
+                    economy: 85
+                }
+            },
+            '3': {
+                title: 'SECTOR 3 - ELITE RESIDENTIAL',
+                description: 'Where the temporal elite reside in luxury. Precisely spaced mansions with quantum-responsive architecture that subtly shifts throughout the day. Temporal harmony gardens bloom in perfect synchronization, a testament to CHRONOS control over nature itself.',
+                specs: {
+                    'Security Classification': 'RESTRICTED',
+                    'Population': '13,427 (TCR 90+ Required)',
+                    'Temporal Stability': '96.8%',
+                    'Building Spacing': '43.7m Precise',
+                    'Temporal Clearance': 'Level 4+ Only',
+                    'Synchronized Gardens': '847 Installations',
+                    'Reality Stability': '98.7%',
+                    'Average Income': '847K Credits/Year'
+                },
+                stats: {
+                    security: 80,
+                    population: 25,
+                    temporal: 95,
+                    infrastructure: 90,
+                    economy: 100
+                }
+            },
+            '4': {
+                title: 'SECTOR 4 - GENERAL RESIDENTIAL',
+                description: 'The beating heart of Boston Prime where most citizens live their carefully regulated lives. Home to the Chrono Monitoring Center where Y/N works, analyzing temporal anomalies. The Garden of Stability provides a false sense of nature in this controlled environment.',
+                specs: {
+                    'Security Classification': 'STANDARD',
+                    'Population': '847,392 (General Citizens)',
+                    'Temporal Stability': '94.3%',
+                    'Population Density': '47 per sq km',
+                    'Anomaly Reports': '17/month Average',
+                    'Chrono Monitoring Center': 'Building 734B',
+                    'Compliance Events': '92% Synchronized',
+                    'Y/N Workplace Location': 'Level 5, Station 73'
+                },
+                stats: {
+                    security: 60,
+                    population: 100,
+                    temporal: 85,
+                    infrastructure: 75,
+                    economy: 70
+                }
+            },
+            '5': {
+                title: 'SECTOR 5 - MANUFACTURING',
+                description: 'The industrial backbone producing temporally-stable goods. The massive Chrono-Sync Watch factory operates in accelerated time chambers, producing thousands of monitoring devices daily. Workers follow schedules monitored to the second.',
+                specs: {
+                    'Security Classification': 'STANDARD',
+                    'Population': '234,847 (Industrial Workers)',
+                    'Temporal Stability': '91.7%',
+                    'Production Efficiency': '99.3% Timeline Adherence',
+                    'Chrono-Sync Production': '73,000 Units/Day',
+                    'Air Quality': '17% Below Other Sectors',
+                    'Noise Level': '74dB Average',
+                    'Shift Monitoring': 'Every 7 Minutes'
+                },
+                stats: {
+                    security: 50,
+                    population: 80,
+                    temporal: 80,
+                    infrastructure: 85,
+                    economy: 90
+                }
+            },
+            '6': {
+                title: 'SECTOR 6 - AGRICULTURAL ZONE',
+                description: 'Time-accelerated farming feeds the city. Crops grow at 327% normal speed in controlled temporal fields. Vertical towers stretch skyward, each level managing different growth phases through precise time manipulation.',
+                specs: {
+                    'Security Classification': 'STANDARD',
+                    'Population': '98,473 (Agricultural Workers)',
+                    'Temporal Stability': '88.4%',
+                    'Growth Acceleration': '327% Above Natural',
+                    'Artificial Light Cycle': '14.7 Hours Optimal',
+                    'Water Purity': '99.97% After Temporal Filtering',
+                    'Vertical Towers': '847 Active Units',
+                    'Food Production': '847% City Requirements'
+                },
+                stats: {
+                    security: 40,
+                    population: 45,
+                    temporal: 75,
+                    infrastructure: 70,
+                    economy: 75
+                }
+            },
+            '7': {
+                title: 'SECTOR 7 - TEMPORAL CONTAINMENT',
+                description: 'The most feared sector in Boston Prime. Here, Outliers are processed and erased, their very existence rewritten. Circular architecture prevents temporal escape while reality anchors consume 47% of the city\'s power to maintain absolute control.',
+                specs: {
+                    'Security Classification': 'ULTRA SECRET',
+                    'Population': 'CLASSIFIED',
+                    'Temporal Stability': 'CLASSIFIED',
+                    'Circular Radius': '1,247 Meters Precise',
+                    'Power Consumption': '47% of City Total',
+                    'Reality Anchors': 'Maximum Density',
+                    'Erasure Processing': 'OPERATIONAL',
+                    'Access': 'Temporal Enforcement Only'
+                },
+                danger: true,
+                stats: {
+                    security: 100,
+                    population: 5,
+                    temporal: 60,
+                    infrastructure: 80,
+                    economy: 30
+                }
+            },
+            '8': {
+                title: 'SECTOR 8 - OUTER BOUNDARY',
+                description: 'The city\'s defensive perimeter where reality gradually transitions from CHRONOS control to the chaotic wasteland beyond. Transit gates scan every soul entering or leaving, while temporal adaptation chambers help travelers adjust to different time flows.',
+                specs: {
+                    'Security Classification': 'RESTRICTED',
+                    'Population': '27,384 (Security Personnel)',
+                    'Temporal Stability': '84.2%',
+                    'Transit Gates': '73 Active Checkpoints',
+                    'Anomaly Detection': '273% Higher Than Interior',
+                    'Temporal Gradient': 'Gradual Normalization',
+                    'Reality Anchors': 'Disguised as Public Art',
+                    'Buffer Zone Width': '27 Kilometers'
+                },
+                stats: {
+                    security: 95,
+                    population: 20,
+                    temporal: 70,
+                    infrastructure: 60,
+                    economy: 40
+                }
+            },
+            'wasteland': {
+                title: 'QUANTUM WASTELAND',
+                description: 'The scarred remains of the Quantum Wars, where temporal weapons tore reality itself. Time flows chaotically - walking 100 meters might take seconds or hours. Plants grow and ungrow in endless cycles while echoes precede their sounds. CHRONOS uses this wasteland for dangerous experiments.',
+                specs: {
+                    'Danger Level': 'EXTREME - DO NOT ENTER',
+                    'Reality Stability': 'CRITICAL FAILURE',
+                    'Time Flow': 'CHAOTIC - UNPREDICTABLE',
+                    'Survival Rate': '<0.1% for Unprotected',
+                    'Temporal Storms': 'Frequent',
+                    'CHRONOS Experiments': 'CLASSIFIED',
+                    'Recovery Timeline': 'Unknown',
+                    'Access': 'ABSOLUTELY FORBIDDEN'
+                },
+                danger: true,
+                stats: {
+                    security: 0,
+                    population: 0,
+                    temporal: 10,
+                    infrastructure: 5,
+                    economy: 0
+                }
+            }
+        };
+
+        const modeData = {
+            overview: { label: 'OVERVIEW MODE', color: '#00d4ff' },
+            security: { label: 'SECURITY ANALYSIS', color: '#4169e1' },
+            population: { label: 'POPULATION DENSITY', color: '#87ceeb' },
+            temporal: { label: 'TEMPORAL STABILITY', color: '#6495ed' },
+            infrastructure: { label: 'INFRASTRUCTURE', color: '#1e90ff' },
+            economy: { label: 'ECONOMIC STATUS', color: '#00bfff' }
+        };
+
+        let currentMode = 'overview';
+        let isTransitioning = false;
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 8 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Mode switching
+        function switchMode(mode) {
+            if (isTransitioning || mode === currentMode) return;
+            
+            isTransitioning = true;
+            currentMode = mode;
+            
+            // Update control buttons
+            document.querySelectorAll('.control-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+            
+            // Update mode indicator
+            const indicator = document.getElementById('modeIndicator');
+            const modeInfo = modeData[mode];
+            indicator.textContent = modeInfo.label;
+            indicator.style.borderColor = modeInfo.color;
+            indicator.style.color = modeInfo.color;
+            
+            // Update sector styling based on mode
+            updateSectorVisuals(mode);
+            
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 1000);
+        }
+
+        function updateSectorVisuals(mode) {
+            const sectors = document.querySelectorAll('.sector');
+            
+            sectors.forEach(sector => {
+                const sectorId = sector.dataset.sector;
+                const data = sectorData[sectorId];
+                
+                if (!data || !data.stats) return;
+                
+                let intensity = 0;
+                let color = modeData[mode].color;
+                
+                switch(mode) {
+                    case 'security':
+                        intensity = data.stats.security / 100;
+                        break;
+                    case 'population':
+                        intensity = data.stats.population / 100;
+                        break;
+                    case 'temporal':
+                        intensity = data.stats.temporal / 100;
+                        break;
+                    case 'infrastructure':
+                        intensity = data.stats.infrastructure / 100;
+                        break;
+                    case 'economy':
+                        intensity = data.stats.economy / 100;
+                        break;
+                    default:
+                        intensity = 0.5;
+                }
+                
+                if (mode !== 'overview') {
+                    const alpha = Math.max(0.1, intensity * 0.8);
+                    sector.style.borderColor = `${color}${Math.floor(alpha * 255).toString(16).padStart(2, '0')}`;
+                    sector.style.backgroundColor = `${color}${Math.floor(alpha * 50).toString(16).padStart(2, '0')}`;
+                } else {
+                    // Reset to default styling
+                    sector.style.borderColor = '';
+                    sector.style.backgroundColor = '';
+                }
+            });
+        }
+
+        // Control panel interactions
+        document.querySelectorAll('.control-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchMode(btn.dataset.mode);
+            });
+        });
+
+        function showSectorInfo(sectorId) {
+            const data = sectorData[sectorId];
+            if (!data) return;
+            
+            const panel = document.getElementById('infoPanel');
+            const title = document.getElementById('infoTitle');
+            const description = document.getElementById('infoDescription');
+            const specs = document.getElementById('infoSpecs');
+            
+            title.textContent = data.title;
+            description.textContent = data.description;
+            
+            // Build specs
+            specs.innerHTML = '';
+            
+            // Add danger warning if applicable
+            if (data.danger) {
+                const warning = document.createElement('div');
+                warning.className = 'danger-warning';
+                warning.innerHTML = '⚠️ <strong>DANGER:</strong> This area poses extreme risks to all personnel. Unauthorized access is strictly prohibited and may result in temporal displacement or reality fragmentation.';
+                specs.appendChild(warning);
+            }
+            
+            // Basic specs
+            const basicSection = document.createElement('div');
+            basicSection.className = 'spec-section';
+            basicSection.innerHTML = '<h3>BASIC INFORMATION</h3>';
+            
+            Object.entries(data.specs).forEach(([key, value]) => {
+                const specItem = document.createElement('div');
+                specItem.className = 'spec-item';
+                specItem.innerHTML = `
+                    <span class="spec-label">${key}:</span>
+                    <span class="spec-value">${value}</span>
+                `;
+                basicSection.appendChild(specItem);
+            });
+            specs.appendChild(basicSection);
+            
+            // Mode-specific stats
+            if (data.stats && currentMode !== 'overview') {
+                const statsSection = document.createElement('div');
+                statsSection.className = 'spec-section';
+                statsSection.innerHTML = `<h3>${modeData[currentMode].label} METRICS</h3>`;
+                
+                const statValue = data.stats[currentMode];
+                const statItem = document.createElement('div');
+                statItem.className = 'spec-item';
+                statItem.innerHTML = `
+                    <span class="spec-label">${modeData[currentMode].label} Rating:</span>
+                    <span class="spec-value">${statValue}/100</span>
+                `;
+                statsSection.appendChild(statItem);
+                specs.appendChild(statsSection);
+            }
+            
+            panel.classList.add('active');
+        }
+
+        function closeInfo() {
+            document.getElementById('infoPanel').classList.remove('active');
+        }
+
+        function toggleHelp() {
+            alert(`BOSTON PRIME WORLD GUIDE
+
+🏙️ TEMPORAL METROPOLITAN ZONES (TMZs)
+After the Quantum Wars, traditional nations collapsed. Humanity now lives in controlled TMZs connected by quantum rails and separated by dangerous wastelands.
+
+⏰ THE 24-HOUR SYSTEM
+CHRONOS enforces an artificial 24-hour day. The natural 25-hour cycle was erased from history. Citizens live by precise schedules monitored to the second.
+
+🎯 TEMPORAL COMPLIANCE RATING (TCR)
+Every citizen has a rating (0-100) based on schedule adherence and reality perception. Higher ratings mean better housing, jobs, and privileges.
+
+🚫 OUTLIERS & THE 25TH HOUR
+Some people can experience the hidden 25th hour when time freezes at 1:59 AM. These "Outliers" are hunted by the Erasure Bureau and completely rewritten.
+
+💊 REALITY CONTROL
+Contact lenses filter out temporal anomalies. Water contains suppressants. Memory adjustments ensure citizens never question the system.
+
+🔬 QUANTUM TECHNOLOGY
+Everything runs on temporal manipulation - faster cooking, instant waste disposal, accelerated farming, even synchronized fountains.
+
+🌍 THE WASTELAND
+Outside the TMZs lie the Quantum Wastelands where reality itself is broken. Time flows chaotically and survival is nearly impossible.
+
+Tap different mode buttons to analyze security, population, temporal stability, infrastructure, or economy across all sectors!`);
+        }
+
+        // Sector interactions
+        document.querySelectorAll('.sector').forEach(sector => {
+            sector.addEventListener('click', () => {
+                sector.classList.add('tapped');
+                setTimeout(() => sector.classList.remove('tapped'), 300);
+                
+                const sectorId = sector.dataset.sector;
+                showSectorInfo(sectorId);
+            });
+        });
+
+        // Update status
+        function updateStatus() {
+            const status = document.querySelector('.header .status');
+            if (!status) return;
+            
+            const time = new Date().toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const population = '2.7M';
+            const anomalies = Math.floor(Math.random() * 3) + 15; // 15-17 anomalies
+            
+            status.textContent = `TMZ • CHRONOS CONTROL ACTIVE • POP: ${population} • ANOMALIES: ${anomalies} • ${time}`;
+        }
+
+        // Touch gestures for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const deltaX = touchEndX - touchStartX;
+            const minSwipeDistance = 80;
+            
+            if (Math.abs(deltaX) > minSwipeDistance) {
+                const modes = ['overview', 'security', 'population', 'temporal', 'infrastructure', 'economy'];
+                const currentIndex = modes.indexOf(currentMode);
+                
+                if (deltaX > 0 && currentIndex > 0) {
+                    switchMode(modes[currentIndex - 1]);
+                } else if (deltaX < 0 && currentIndex < modes.length - 1) {
+                    switchMode(modes[currentIndex + 1]);
+                }
+            }
+        }, { passive: true });
+
+        // Initialize
+        function init() {
+            createParticles();
+            updateStatus();
+            setInterval(updateStatus, 5000);
+            
+            // Add some initial animation
+            setTimeout(() => {
+                document.querySelectorAll('.sector').forEach((sector, index) => {
+                    setTimeout(() => {
+                        sector.style.transform = 'scale(1.05)';
+                        setTimeout(() => {
+                            sector.style.transform = '';
+                        }, 200);
+                    }, index * 100);
+                });
+            }, 1000);
+        }
+
+        // Prevent zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (e) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        init();
+
+        console.log('🌆 Boston Prime TMZ Online');
+        console.log('⏰ CHRONOS Control Active');
+        console.log('🔍 8 Sectors Mapped');
+        console.log('⚠️ Quantum Wasteland Detected');
+    </script>
+</body>
+</html>

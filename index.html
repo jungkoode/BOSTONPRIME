@@ -1101,39 +1101,6 @@
             z-index: 10;
             transition: all 0.6s ease;
         }
-
-        .data-streams {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .data-stream {
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom,
-                transparent 0%,
-                #00d4ff 50%,
-                transparent 100%);
-            animation: dataStreamFlow 3s linear infinite;
-        }
-
-        .data-stream:nth-child(1) { right: 10%; animation-delay: 0s; }
-        .data-stream:nth-child(2) { right: 30%; animation-delay: 1s; }
-        .data-stream:nth-child(3) { right: 50%; animation-delay: 2s; }
-        .data-stream:nth-child(4) { right: 70%; animation-delay: 0.5s; }
-        .data-stream:nth-child(5) { right: 90%; animation-delay: 1.5s; }
-
-        @keyframes dataStreamFlow {
-            0% { transform: translateY(-100%); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
     </style>
 </head>
 <body>
@@ -1156,88 +1123,9 @@
         <div class="map-area">
             <div class="quantum-grid"></div>
             <div class="mode-indicator" id="modeIndicator">OVERVIEW MODE</div>
-            <div class="data-streams">
-                <div class="data-stream"></div>
-                <div class="data-stream"></div>
-                <div class="data-stream"></div>
-                <div class="data-stream"></div>
-                <div class="data-stream"></div>
-            </div>
             
             <div class="city-map" id="cityMap">
-                <!-- Sector 1 - Central Command -->
-                <div class="sector central" data-sector="1">
-                    <div class="sector-number">1</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">CENTRAL COMMAND</div>
-                    <div class="sector-desc">CHRONOS HQ • Master Clock • Executive Zone</div>
-                    <div class="sector-data" id="data-1"></div>
-                </div>
-
-                <!-- Sector 2 - Research District -->
-                <div class="sector" data-sector="2">
-                    <div class="sector-number">2</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">RESEARCH DISTRICT</div>
-                    <div class="sector-desc">Quantum Labs • Temporal Research • Innovation</div>
-                    <div class="sector-data" id="data-2"></div>
-                </div>
-
-                <!-- Sector 3 - Elite Residential -->
-                <div class="sector" data-sector="3">
-                    <div class="sector-number">3</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">ELITE RESIDENTIAL</div>
-                    <div class="sector-desc">Luxury Housing • Temporal Gardens • High Society</div>
-                    <div class="sector-data" id="data-3"></div>
-                </div>
-
-                <!-- Sector 4 - General Residential -->
-                <div class="sector" data-sector="4">
-                    <div class="sector-number">4</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">GENERAL RESIDENTIAL</div>
-                    <div class="sector-desc">Main Population • Y/N's Workplace • Daily Life</div>
-                    <div class="sector-data" id="data-4"></div>
-                </div>
-
-                <!-- Sector 5 - Manufacturing -->
-                <div class="sector" data-sector="5">
-                    <div class="sector-number">5</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">MANUFACTURING</div>
-                    <div class="sector-desc">Production • Chrono-Sync Factory • Industrial</div>
-                    <div class="sector-data" id="data-5"></div>
-                </div>
-
-                <!-- Sector 6 - Agricultural -->
-                <div class="sector" data-sector="6">
-                    <div class="sector-number">6</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">AGRICULTURAL ZONE</div>
-                    <div class="sector-desc">Time-Accelerated Farming • Food Production</div>
-                    <div class="sector-data" id="data-6"></div>
-                </div>
-
-                <!-- Sector 7 - Containment -->
-                <div class="sector" data-sector="7">
-                    <div class="sector-number">7</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">TEMPORAL CONTAINMENT</div>
-                    <div class="sector-desc">Erasure Processing • Outlier Detention • Classified</div>
-                    <div class="sector-data" id="data-7"></div>
-                </div>
-
-                <!-- Sector 8 - Outer Boundary -->
-                <div class="sector" data-sector="8">
-                    <div class="sector-number">8</div>
-                    <div class="sector-status"></div>
-                    <div class="sector-name">OUTER BOUNDARY</div>
-                    <div class="sector-desc">Buffer Zone • Transit Gates • Wasteland Edge</div>
-                    <div class="sector-data" id="data-8"></div>
-                </div>
-
-                <!-- Quantum Wasteland -->
+                <!-- Quantum Wasteland (top-left) -->
                 <div class="sector wasteland" data-sector="wasteland">
                     <div class="sector-number">⚠</div>
                     <div class="sector-status"></div>
@@ -1246,16 +1134,88 @@
                     <div class="sector-data" id="data-wasteland"></div>
                 </div>
 
+                <!-- Sector 2 - Research District (top-center) -->
+                <div class="sector" data-sector="2">
+                    <div class="sector-number">2</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">RESEARCH DISTRICT</div>
+                    <div class="sector-desc">Quantum Labs • Temporal Research • Innovation</div>
+                    <div class="sector-data" id="data-2"></div>
+                </div>
+
+                <!-- Sector 3 - Elite Residential (top-right) -->
+                <div class="sector" data-sector="3">
+                    <div class="sector-number">3</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">ELITE RESIDENTIAL</div>
+                    <div class="sector-desc">Luxury Housing • Temporal Gardens • High Society</div>
+                    <div class="sector-data" id="data-3"></div>
+                </div>
+
+                <!-- Sector 4 - General Residential (middle-left) -->
+                <div class="sector" data-sector="4">
+                    <div class="sector-number">4</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">GENERAL RESIDENTIAL</div>
+                    <div class="sector-desc">Main Population • Y/N's Workplace • Daily Life</div>
+                    <div class="sector-data" id="data-4"></div>
+                </div>
+
+                <!-- Sector 1 - Central Command (middle-center) -->
+                <div class="sector central" data-sector="1">
+                    <div class="sector-number">1</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">CENTRAL COMMAND</div>
+                    <div class="sector-desc">CHRONOS HQ • Master Clock • Executive Zone</div>
+                    <div class="sector-data" id="data-1"></div>
+                </div>
+
+                <!-- Sector 8 - Outer Boundary (middle-right) -->
+                <div class="sector" data-sector="8">
+                    <div class="sector-number">8</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">OUTER BOUNDARY</div>
+                    <div class="sector-desc">Buffer Zone • Transit Gates • Wasteland Edge</div>
+                    <div class="sector-data" id="data-8"></div>
+                </div>
+
+                <!-- Sector 5 - Manufacturing (bottom-left) -->
+                <div class="sector" data-sector="5">
+                    <div class="sector-number">5</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">MANUFACTURING</div>
+                    <div class="sector-desc">Production • Chrono-Sync Factory • Industrial</div>
+                    <div class="sector-data" id="data-5"></div>
+                </div>
+
+                <!-- Sector 7 - Temporal Containment (bottom-center) -->
+                <div class="sector" data-sector="7">
+                    <div class="sector-number">7</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">TEMPORAL CONTAINMENT</div>
+                    <div class="sector-desc">Erasure Processing • Outlier Detention • Classified</div>
+                    <div class="sector-data" id="data-7"></div>
+                </div>
+
+                <!-- Sector 6 - Agricultural Zone (bottom-right) -->
+                <div class="sector" data-sector="6">
+                    <div class="sector-number">6</div>
+                    <div class="sector-status"></div>
+                    <div class="sector-name">AGRICULTURAL ZONE</div>
+                    <div class="sector-desc">Time-Accelerated Farming • Food Production</div>
+                    <div class="sector-data" id="data-6"></div>
+                </div>
+
                 <!-- Connection Lines (Hidden by default) -->
-                <div class="connection-line" id="line-1-2"></div>
+                <div class="connection-line" id="line-2-1"></div>
                 <div class="connection-line" id="line-1-4"></div>
+                <div class="connection-line" id="line-1-8"></div>
                 <div class="connection-line" id="line-2-3"></div>
-                <div class="connection-line" id="line-3-6"></div>
                 <div class="connection-line" id="line-4-5"></div>
-                <div class="connection-line" id="line-4-7"></div>
-                <div class="connection-line" id="line-5-8"></div>
-                <div class="connection-line" id="line-6-9"></div>
-                <div class="connection-line" id="line-7-8"></div>
+                <div class="connection-line" id="line-5-7"></div>
+                <div class="connection-line" id="line-7-6"></div>
+                <div class="connection-line" id="line-6-8"></div>
+                <div class="connection-line" id="line-8-3"></div>
 
                 <!-- Transport Hubs (Hidden by default) -->
                 <div class="transport-hub" id="hub-central" style="top: 50%; left: 50%;"></div>
@@ -1373,808 +1333,764 @@
                 </div>
             </div>
             <button class="guide-close-btn" onclick="closeWorldGuide()">CLOSE GUIDE</button>
-        </div>🟢 POPULATION:</strong> Citizen density and demographics<br>  
-                        <strong>🟡 TEMPORAL:</strong> Time flow stability and anomaly rates<br>
-                        <strong>🟣 TRANSPORT:</strong> Inter-sector and TMZ connections<br>
-                        <strong>🟠 ECONOMY:</strong> Production levels and resource allocation<br>
-                        <strong>🔵 TMZ NETWORK:</strong> Global connections to other metropolitan zones
-                    </div>
-                </div>
-            </div>
-            <button class="guide-close-btn" onclick="closeWorldGuide()">CLOSE GUIDE</button>
         </div>
 
         <div class="floating-particles" id="particles"></div>
     </div>
 
-    <script>
-        const sectorData = {
-            '1': {
-                title: 'SECTOR 1 - CENTRAL COMMAND',
-                description: 'The nerve center of CHRONOS control. Here lies the Master Clock, the physical nexus that maintains the artificial 24-hour cycle across all reality. Only the highest-ranking officials have access to this ultra-secured zone where time itself is controlled.',
-                specs: {
-                    'Security Classification': 'ULTRA SECRET',
-                    'Population': '3,247 (Elite Personnel Only)',
-                    'Temporal Stability': '99.97%',
-                    'Master Clock Status': 'OPERATIONAL',
-                    'Reality Anchors': '847 Active Units',
-                    'Access Level': 'Director+ Only',
-                    'Power Consumption': '23.7MW Continuous',
-                    'Threat Level': 'MAXIMUM SECURITY'
-                },
-                stats: {
-                    security: 100,
-                    population: 15,
-                    temporal: 100,
-                    transport: 95,
-                    economy: 90,
-                    tmz: 100
-                },
-                connections: ['2', '4'],
-                transportHubs: ['central', 'north', 'south', 'east', 'west'],
-                tmzConnections: ['New York Prime', 'Washington DC TMZ', 'Philadelphia Complex']
+<script>
+    const sectorData = {
+        '1': {
+            title: 'SECTOR 1 - CENTRAL COMMAND',
+            description: 'The nerve center of CHRONOS control. Here lies the Master Clock, the physical nexus that maintains the artificial 24-hour cycle across all reality. Only the highest-ranking officials have access to this ultra-secured zone where time itself is controlled.',
+            specs: {
+                'Security Classification': 'ULTRA SECRET',
+                'Population': '3,247 (Elite Personnel Only)',
+                'Temporal Stability': '99.97%',
+                'Master Clock Status': 'OPERATIONAL',
+                'Reality Anchors': '847 Active Units',
+                'Access Level': 'Director+ Only',
+                'Power Consumption': '23.7MW Continuous',
+                'Threat Level': 'MAXIMUM SECURITY'
             },
-            '2': {
-                title: 'SECTOR 2 - RESEARCH DISTRICT',
-                description: 'The scientific heart of Boston Prime. Quantum laboratories push the boundaries of temporal science while reality testing chambers ensure no anomalies escape detection. Blue-tinted windows filter specific wavelengths that could destabilize temporal fields.',
-                specs: {
-                    'Security Classification': 'SECRET',
-                    'Population': '47,823 (Scientists & Support)',
-                    'Temporal Stability': '97.2%',
-                    'Active Research Projects': '1,847',
-                    'Quantum Labs': '73 Facilities',
-                    'Blue Light Filtering': '99.3% Effective',
-                    'Oxygen Enhancement': '+3.1% Above Standard',
-                    'Innovation Index': '847.3 (Very High)'
-                },
-                stats: {
-                    security: 85,
-                    population: 35,
-                    temporal: 90,
-                    transport: 70,
-                    economy: 85,
-                    tmz: 80
-                },
-                connections: ['1', '3'],
-                transportHubs: ['north'],
-                tmzConnections: ['MIT Cambridge TMZ', 'Harvard Research Zone']
+            stats: {
+                security: 100,
+                population: 15,
+                temporal: 100,
+                transport: 95,
+                economy: 90,
+                tmz: 100
             },
-            '3': {
-                title: 'SECTOR 3 - ELITE RESIDENTIAL',
-                description: 'Where the temporal elite reside in luxury. Precisely spaced mansions with quantum-responsive architecture that subtly shifts throughout the day. Temporal harmony gardens bloom in perfect synchronization, a testament to CHRONOS control over nature itself.',
-                specs: {
-                    'Security Classification': 'RESTRICTED',
-                    'Population': '13,427 (TCR 90+ Required)',
-                    'Temporal Stability': '96.8%',
-                    'Building Spacing': '43.7m Precise',
-                    'Temporal Clearance': 'Level 4+ Only',
-                    'Synchronized Gardens': '847 Installations',
-                    'Reality Stability': '98.7%',
-                    'Average Income': '847K Credits/Year'
-                },
-                stats: {
-                    security: 80,
-                    population: 25,
-                    temporal: 95,
-                    transport: 60,
-                    economy: 100,
-                    tmz: 70
-                },
-                connections: ['2', '6'],
-                transportHubs: ['east'],
-                tmzConnections: ['Beacon Hill Executive Zone']
+            connections: ['2', '4', '8'],
+            transportHubs: ['central', 'north', 'south', 'east', 'west'],
+            tmzConnections: ['New York Prime', 'Washington DC TMZ', 'Philadelphia Complex']
+        },
+        '2': {
+            title: 'SECTOR 2 - RESEARCH DISTRICT',
+            description: 'The scientific heart of Boston Prime. Quantum laboratories push the boundaries of temporal science while reality testing chambers ensure no anomalies escape detection. Blue-tinted windows filter specific wavelengths that could destabilize temporal fields.',
+            specs: {
+                'Security Classification': 'SECRET',
+                'Population': '47,823 (Scientists & Support)',
+                'Temporal Stability': '97.2%',
+                'Active Research Projects': '1,847',
+                'Quantum Labs': '73 Facilities',
+                'Blue Light Filtering': '99.3% Effective',
+                'Oxygen Enhancement': '+3.1% Above Standard',
+                'Innovation Index': '847.3 (Very High)'
             },
-            '4': {
-                title: 'SECTOR 4 - GENERAL RESIDENTIAL',
-                description: 'The beating heart of Boston Prime where most citizens live their carefully regulated lives. Home to the Chrono Monitoring Center where Y/N works, analyzing temporal anomalies. The Garden of Stability provides a false sense of nature in this controlled environment.',
-                specs: {
-                    'Security Classification': 'STANDARD',
-                    'Population': '847,392 (General Citizens)',
-                    'Temporal Stability': '94.3%',
-                    'Population Density': '47 per sq km',
-                    'Anomaly Reports': '17/month Average',
-                    'Chrono Monitoring Center': 'Building 734B',
-                    'Compliance Events': '92% Synchronized',
-                    'Y/N Workplace Location': 'Level 5, Station 73'
-                },
-                stats: {
-                    security: 60,
-                    population: 100,
-                    temporal: 85,
-                    transport: 90,
-                    economy: 70,
-                    tmz: 60
-                },
-                connections: ['1', '5', '7'],
-                transportHubs: ['central', 'west'],
-                tmzConnections: ['Cambridge Residential', 'Somerville Housing District']
+            stats: {
+                security: 85,
+                population: 35,
+                temporal: 90,
+                transport: 70,
+                economy: 85,
+                tmz: 80
             },
-            '5': {
-                title: 'SECTOR 5 - MANUFACTURING',
-                description: 'The industrial backbone producing temporally-stable goods. The massive Chrono-Sync Watch factory operates in accelerated time chambers, producing thousands of monitoring devices daily. Workers follow schedules monitored to the second.',
-                specs: {
-                    'Security Classification': 'STANDARD',
-                    'Population': '234,847 (Industrial Workers)',
-                    'Temporal Stability': '91.7%',
-                    'Production Efficiency': '99.3% Timeline Adherence',
-                    'Chrono-Sync Production': '73,000 Units/Day',
-                    'Air Quality': '17% Below Other Sectors',
-                    'Noise Level': '74dB Average',
-                    'Shift Monitoring': 'Every 7 Minutes'
-                },
-                stats: {
-                    security: 50,
-                    population: 80,
-                    temporal: 80,
-                    transport: 95,
-                    economy: 90,
-                    tmz: 85
-                },
-                connections: ['4', '8'],
-                transportHubs: ['south', 'west'],
-                tmzConnections: ['Providence Industrial', 'Hartford Manufacturing TMZ']
+            connections: ['1', '3'],
+            transportHubs: ['north'],
+            tmzConnections: ['MIT Cambridge TMZ', 'Harvard Research Zone']
+        },
+        '3': {
+            title: 'SECTOR 3 - ELITE RESIDENTIAL',
+            description: 'Where the temporal elite reside in luxury. Precisely spaced mansions with quantum-responsive architecture that subtly shifts throughout the day. Temporal harmony gardens bloom in perfect synchronization, a testament to CHRONOS control over nature itself.',
+            specs: {
+                'Security Classification': 'RESTRICTED',
+                'Population': '13,427 (TCR 90+ Required)',
+                'Temporal Stability': '96.8%',
+                'Building Spacing': '43.7m Precise',
+                'Temporal Clearance': 'Level 4+ Only',
+                'Synchronized Gardens': '847 Installations',
+                'Reality Stability': '98.7%',
+                'Average Income': '847K Credits/Year'
             },
-            '6': {
-                title: 'SECTOR 6 - AGRICULTURAL ZONE',
-                description: 'Time-accelerated farming feeds the city. Crops grow at 327% normal speed in controlled temporal fields. Vertical towers stretch skyward, each level managing different growth phases through precise time manipulation.',
-                specs: {
-                    'Security Classification': 'STANDARD',
-                    'Population': '98,473 (Agricultural Workers)',
-                    'Temporal Stability': '88.4%',
-                    'Growth Acceleration': '327% Above Natural',
-                    'Artificial Light Cycle': '14.7 Hours Optimal',
-                    'Water Purity': '99.97% After Temporal Filtering',
-                    'Vertical Towers': '847 Active Units',
-                    'Food Production': '847% City Requirements'
-                },
-                stats: {
-                    security: 40,
-                    population: 45,
-                    temporal: 75,
-                    transport: 50,
-                    economy: 75,
-                    tmz: 40
-                },
-                connections: ['3', 'wasteland'],
-                transportHubs: ['east'],
-                tmzConnections: ['Vermont Agricultural TMZ']
+            stats: {
+                security: 80,
+                population: 25,
+                temporal: 95,
+                transport: 60,
+                economy: 100,
+                tmz: 70
             },
-            '7': {
-                title: 'SECTOR 7 - TEMPORAL CONTAINMENT',
-                description: 'The most feared sector in Boston Prime. Here, Outliers are processed and erased, their very existence rewritten. Circular architecture prevents temporal escape while reality anchors consume 47% of the city\'s power to maintain absolute control.',
-                specs: {
-                    'Security Classification': 'ULTRA SECRET',
-                    'Population': 'CLASSIFIED',
-                    'Temporal Stability': 'CLASSIFIED',
-                    'Circular Radius': '1,247 Meters Precise',
-                    'Power Consumption': '47% of City Total',
-                    'Reality Anchors': 'Maximum Density',
-                    'Erasure Processing': 'OPERATIONAL',
-                    'Access': 'Temporal Enforcement Only'
-                },
-                danger: true,
-                stats: {
-                    security: 100,
-                    population: 5,
-                    temporal: 60,
-                    transport: 20,
-                    economy: 30,
-                    tmz: 90
-                },
-                connections: ['4', '8'],
-                transportHubs: [],
-                tmzConnections: ['Classified TMZ Facilities']
+            connections: ['2', '8', '6'],
+            transportHubs: ['east'],
+            tmzConnections: ['Beacon Hill Executive Zone']
+        },
+        '4': {
+            title: 'SECTOR 4 - GENERAL RESIDENTIAL',
+            description: 'The beating heart of Boston Prime where most citizens live their carefully regulated lives. Home to the Chrono Monitoring Center where Y/N works, analyzing temporal anomalies. The Garden of Stability provides a false sense of nature in this controlled environment.',
+            specs: {
+                'Security Classification': 'STANDARD',
+                'Population': '847,392 (General Citizens)',
+                'Temporal Stability': '94.3%',
+                'Population Density': '47 per sq km',
+                'Anomaly Reports': '17/month Average',
+                'Chrono Monitoring Center': 'Building 734B',
+                'Compliance Events': '92% Synchronized',
+                'Y/N Workplace Location': 'Level 5, Station 73'
             },
-            '8': {
-                title: 'SECTOR 8 - OUTER BOUNDARY',
-                description: 'The city\'s defensive perimeter where reality gradually transitions from CHRONOS control to the chaotic wasteland beyond. Transit gates scan every soul entering or leaving, while temporal adaptation chambers help travelers adjust to different time flows.',
-                specs: {
-                    'Security Classification': 'RESTRICTED',
-                    'Population': '27,384 (Security Personnel)',
-                    'Temporal Stability': '84.2%',
-                    'Transit Gates': '73 Active Checkpoints',
-                    'Anomaly Detection': '273% Higher Than Interior',
-                    'Temporal Gradient': 'Gradual Normalization',
-                    'Reality Anchors': 'Disguised as Public Art',
-                    'Buffer Zone Width': '27 Kilometers'
-                },
-                stats: {
-                    security: 95,
-                    population: 20,
-                    temporal: 70,
-                    transport: 100,
-                    economy: 40,
-                    tmz: 95
-                },
-                connections: ['5', '7'],
-                transportHubs: ['south', 'central'],
-                tmzConnections: ['All TMZ Network Entry Points', 'Quantum Rail Terminals']
+            stats: {
+                security: 60,
+                population: 100,
+                temporal: 85,
+                transport: 90,
+                economy: 70,
+                tmz: 60
             },
-            'wasteland': {
-                title: 'QUANTUM WASTELAND',
-                description: 'The scarred remains of the Quantum Wars, where temporal weapons tore reality itself. Time flows chaotically - walking 100 meters might take seconds or hours. Plants grow and ungrow in endless cycles while echoes precede their sounds. CHRONOS uses this wasteland for dangerous experiments.',
-                specs: {
-                    'Danger Level': 'EXTREME - DO NOT ENTER',
-                    'Reality Stability': 'CRITICAL FAILURE',
-                    'Time Flow': 'CHAOTIC - UNPREDICTABLE',
-                    'Survival Rate': '<0.1% for Unprotected',
-                    'Temporal Storms': 'Frequent',
-                    'CHRONOS Experiments': 'CLASSIFIED',
-                    'Recovery Timeline': 'Unknown',
-                    'Access': 'ABSOLUTELY FORBIDDEN'
-                },
-                danger: true,
-                stats: {
-                    security: 0,
-                    population: 0,
-                    temporal: 10,
-                    transport: 0,
-                    economy: 0,
-                    tmz: 0
-                },
-                connections: ['6'],
-                transportHubs: [],
-                tmzConnections: ['Other Quantum Wastelands Globally']
-            }
-        };
-
-        const modeData = {
-            overview: { 
-                label: 'OVERVIEW MODE', 
-                color: '#00d4ff',
-                description: 'General sector information and basic layout'
+            connections: ['1', '5'],
+            transportHubs: ['central', 'west'],
+            tmzConnections: ['Cambridge Residential', 'Somerville Housing District']
+        },
+        '5': {
+            title: 'SECTOR 5 - MANUFACTURING',
+            description: 'The industrial backbone producing temporally-stable goods. The massive Chrono-Sync Watch factory operates in accelerated time chambers, producing thousands of monitoring devices daily. Workers follow schedules monitored to the second.',
+            specs: {
+                'Security Classification': 'STANDARD',
+                'Population': '234,847 (Industrial Workers)',
+                'Temporal Stability': '91.7%',
+                'Production Efficiency': '99.3% Timeline Adherence',
+                'Chrono-Sync Production': '73,000 Units/Day',
+                'Air Quality': '17% Below Other Sectors',
+                'Noise Level': '74dB Average',
+                'Shift Monitoring': 'Every 7 Minutes'
             },
-            security: { 
-                label: 'SECURITY ANALYSIS', 
-                color: '#dc143c',
-                description: 'Threat levels, access restrictions, and monitoring intensity'
+            stats: {
+                security: 50,
+                population: 80,
+                temporal: 80,
+                transport: 95,
+                economy: 90,
+                tmz: 85
             },
-            population: { 
-                label: 'POPULATION DENSITY', 
-                color: '#32cd32',
-                description: 'Citizen distribution, demographics, and capacity metrics'
+            connections: ['4', '7'],
+            transportHubs: ['south', 'west'],
+            tmzConnections: ['Providence Industrial', 'Hartford Manufacturing TMZ']
+        },
+        '6': {
+            title: 'SECTOR 6 - AGRICULTURAL ZONE',
+            description: 'Time-accelerated farming feeds the city. Crops grow at 327% normal speed in controlled temporal fields. Vertical towers stretch skyward, each level managing different growth phases through precise time manipulation.',
+            specs: {
+                'Security Classification': 'STANDARD',
+                'Population': '98,473 (Agricultural Workers)',
+                'Temporal Stability': '88.4%',
+                'Growth Acceleration': '327% Above Natural',
+                'Artificial Light Cycle': '14.7 Hours Optimal',
+                'Water Purity': '99.97% After Temporal Filtering',
+                'Vertical Towers': '847 Active Units',
+                'Food Production': '847% City Requirements'
             },
-            temporal: { 
-                label: 'TEMPORAL STABILITY', 
-                color: '#ffd700',
-                description: 'Time flow consistency, reality anchor strength, and anomaly rates'
+            stats: {
+                security: 40,
+                population: 45,
+                temporal: 75,
+                transport: 50,
+                economy: 75,
+                tmz: 40
             },
-            transport: { 
-                label: 'TRANSPORT NETWORK', 
-                color: '#8a2be2',
-                description: 'Inter-sector connections, transit hubs, and movement patterns'
+            connections: ['7', '8', '3'],
+            transportHubs: ['east'],
+            tmzConnections: ['Vermont Agricultural TMZ']
+        },
+        '7': {
+            title: 'SECTOR 7 - TEMPORAL CONTAINMENT',
+            description: 'The most feared sector in Boston Prime. Here, Outliers are processed and erased, their very existence rewritten. Circular architecture prevents temporal escape while reality anchors consume 47% of the city\'s power to maintain absolute control.',
+            specs: {
+                'Security Classification': 'ULTRA SECRET',
+                'Population': 'CLASSIFIED',
+                'Temporal Stability': 'CLASSIFIED',
+                'Circular Radius': '1,247 Meters Precise',
+                'Power Consumption': '47% of City Total',
+                'Reality Anchors': 'Maximum Density',
+                'Erasure Processing': 'OPERATIONAL',
+                'Access': 'Temporal Enforcement Only'
             },
-            economy: { 
-                label: 'ECONOMIC STATUS', 
-                color: '#ffa500',
-                description: 'Production levels, resource allocation, and economic activity'
+            danger: true,
+            stats: {
+                security: 100,
+                population: 5,
+                temporal: 60,
+                transport: 20,
+                economy: 30,
+                tmz: 90
             },
-            tmz: { 
-                label: 'TMZ NETWORK', 
-                color: '#00ffff',
-                description: 'Connections to other Temporal Metropolitan Zones worldwide'
-            }
-        };
-
-        let currentMode = 'overview';
-        let isTransitioning = false;
-
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            for (let i = 0; i < 40; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 8 + 10) + 's';
-                container.appendChild(particle);
-            }
+            connections: ['5', '6'],
+            transportHubs: [],
+            tmzConnections: ['Classified TMZ Facilities']
+        },
+        '8': {
+            title: 'SECTOR 8 - OUTER BOUNDARY',
+            description: 'The city\'s defensive perimeter where reality gradually transitions from CHRONOS control to the chaotic wasteland beyond. Transit gates scan every soul entering or leaving, while temporal adaptation chambers help travelers adjust to different time flows.',
+            specs: {
+                'Security Classification': 'RESTRICTED',
+                'Population': '27,384 (Security Personnel)',
+                'Temporal Stability': '84.2%',
+                'Transit Gates': '73 Active Checkpoints',
+                'Anomaly Detection': '273% Higher Than Interior',
+                'Temporal Gradient': 'Gradual Normalization',
+                'Reality Anchors': 'Disguised as Public Art',
+                'Buffer Zone Width': '27 Kilometers'
+            },
+            stats: {
+                security: 95,
+                population: 20,
+                temporal: 70,
+                transport: 100,
+                economy: 40,
+                tmz: 95
+            },
+            connections: ['1', '3', '6'],
+            transportHubs: ['south', 'central'],
+            tmzConnections: ['All TMZ Network Entry Points', 'Quantum Rail Terminals']
+        },
+        'wasteland': {
+            title: 'QUANTUM WASTELAND',
+            description: 'The scarred remains of the Quantum Wars, where temporal weapons tore reality itself. Time flows chaotically - walking 100 meters might take seconds or hours. Plants grow and ungrow in endless cycles while echoes precede their sounds. CHRONOS uses this wasteland for dangerous experiments.',
+            specs: {
+                'Danger Level': 'EXTREME - DO NOT ENTER',
+                'Reality Stability': 'CRITICAL FAILURE',
+                'Time Flow': 'CHAOTIC - UNPREDICTABLE',
+                'Survival Rate': '<0.1% for Unprotected',
+                'Temporal Storms': 'Frequent',
+                'CHRONOS Experiments': 'CLASSIFIED',
+                'Recovery Timeline': 'Unknown',
+                'Access': 'ABSOLUTELY FORBIDDEN'
+            },
+            danger: true,
+            stats: {
+                security: 0,
+                population: 0,
+                temporal: 10,
+                transport: 0,
+                economy: 0,
+                tmz: 0
+            },
+            connections: [],
+            transportHubs: [],
+            tmzConnections: ['Other Quantum Wastelands Globally']
         }
+    };
 
-        // Mode switching with dramatic visual changes
-        function switchMode(mode) {
-            if (isTransitioning || mode === currentMode) return;
-            
-            isTransitioning = true;
-            currentMode = mode;
-            
-            // Update control buttons
-            document.querySelectorAll('.control-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.mode === mode);
-            });
-            
-            // Update mode indicator
-            const indicator = document.getElementById('modeIndicator');
-            const modeInfo = modeData[mode];
-            indicator.textContent = modeInfo.label;
-            indicator.style.borderColor = modeInfo.color;
-            indicator.style.color = modeInfo.color;
-            
-            // Update body class for mode-specific styling
-            document.body.className = `mode-${mode}`;
-            
-            // Update sector visuals and data
-            updateSectorVisuals(mode);
-            updateSectorData(mode);
-            updateConnections(mode);
-            
-            setTimeout(() => {
-                isTransitioning = false;
-            }, 1200);
+    const modeData = {
+        overview: { 
+            label: 'OVERVIEW MODE', 
+            color: '#00d4ff',
+            description: 'General sector information and basic layout'
+        },
+        security: { 
+            label: 'SECURITY ANALYSIS', 
+            color: '#dc143c',
+            description: 'Threat levels, access restrictions, and monitoring intensity'
+        },
+        population: { 
+            label: 'POPULATION DENSITY', 
+            color: '#32cd32',
+            description: 'Citizen distribution, demographics, and capacity metrics'
+        },
+        temporal: { 
+            label: 'TEMPORAL STABILITY', 
+            color: '#ffd700',
+            description: 'Time flow consistency, reality anchor strength, and anomaly rates'
+        },
+        transport: { 
+            label: 'TRANSPORT NETWORK', 
+            color: '#8a2be2',
+            description: 'Inter-sector connections, transit hubs, and movement patterns'
+        },
+        economy: { 
+            label: 'ECONOMIC STATUS', 
+            color: '#ffa500',
+            description: 'Production levels, resource allocation, and economic activity'
+        },
+        tmz: { 
+            label: 'TMZ NETWORK', 
+            color: '#00ffff',
+            description: 'Connections to other Temporal Metropolitan Zones worldwide'
         }
+    };
 
-        function updateSectorVisuals(mode) {
-            const sectors = document.querySelectorAll('.sector');
-            const modeColor = modeData[mode].color;
-            
-            sectors.forEach(sector => {
-                const sectorId = sector.dataset.sector;
-                const data = sectorData[sectorId];
-                
-                if (!data || !data.stats) return;
-                
-                let intensity = data.stats[mode] / 100;
-                let alpha = Math.max(0.1, intensity);
-                
-                // Convert hex to rgb for alpha manipulation
-                const r = parseInt(modeColor.slice(1, 3), 16);
-                const g = parseInt(modeColor.slice(3, 5), 16);
-                const b = parseInt(modeColor.slice(5, 7), 16);
-                
-                if (mode !== 'overview') {
-                    sector.style.borderColor = `rgba(${r}, ${g}, ${b}, ${alpha * 0.9})`;
-                    sector.style.background = `linear-gradient(135deg, 
-                        rgba(${r}, ${g}, ${b}, ${alpha * 0.15}) 0%, 
-                        rgba(0, 0, 0, 0.8) 50%,
-                        rgba(${r}, ${g}, ${b}, ${alpha * 0.1}) 100%)`;
-                    
-                    // Update status indicator
-                    const statusIndicator = sector.querySelector('.sector-status');
-                    if (statusIndicator) {
-                        statusIndicator.style.background = `radial-gradient(circle, rgba(${r}, ${g}, ${b}, 1) 0%, rgba(${r}, ${g}, ${b}, 0.7) 100%)`;
-                        statusIndicator.style.boxShadow = `0 0 ${15 + intensity * 10}px rgba(${r}, ${g}, ${b}, ${alpha})`;
-                    }
-                } else {
-                    // Reset to default styling
-                    sector.style.borderColor = '';
-                    sector.style.background = '';
-                    const statusIndicator = sector.querySelector('.sector-status');
-                    if (statusIndicator) {
-                        statusIndicator.style.background = '';
-                        statusIndicator.style.boxShadow = '';
-                    }
-                }
-            });
+    let currentMode = 'overview';
+    let isTransitioning = false;
+
+    // Create floating particles
+    function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 8 + 10) + 's';
+            container.appendChild(particle);
         }
+    }
 
-        function updateSectorData(mode) {
-            const sectors = document.querySelectorAll('.sector');
-            
-            sectors.forEach(sector => {
-                const sectorId = sector.dataset.sector;
-                const data = sectorData[sectorId];
-                const dataElement = sector.querySelector('.sector-data');
-                
-                if (!data || !data.stats || !dataElement) return;
-                
-                let content = '';
-                const value = data.stats[mode];
-                
-                switch(mode) {
-                    case 'security':
-                        content = `THREAT: ${value > 80 ? 'MAX' : value > 60 ? 'HIGH' : value > 40 ? 'MED' : 'LOW'} • ${value}/100`;
-                        break;
-                    case 'population':
-                        const popText = value > 80 ? 'DENSE' : value > 60 ? 'MODERATE' : value > 20 ? 'SPARSE' : 'MINIMAL';
-                        content = `DENSITY: ${popText} • ${value}%`;
-                        break;
-                    case 'temporal':
-                        content = `STABILITY: ${value > 90 ? 'STABLE' : value > 70 ? 'MODERATE' : value > 50 ? 'UNSTABLE' : 'CRITICAL'} • ${value}%`;
-                        break;
-                    case 'transport':
-                        const connections = data.connections ? data.connections.length : 0;
-                        const hubs = data.transportHubs ? data.transportHubs.length : 0;
-                        content = `ROUTES: ${connections} • HUBS: ${hubs} • RATING: ${value}%`;
-                        break;
-                    case 'economy':
-                        const ecoText = value > 80 ? 'THRIVING' : value > 60 ? 'STABLE' : value > 40 ? 'STRUGGLING' : 'POOR';
-                        content = `STATUS: ${ecoText} • INDEX: ${value}`;
-                        break;
-                    case 'tmz':
-                        const tmzCount = data.tmzConnections ? data.tmzConnections.length : 0;
-                        content = `TMZ LINKS: ${tmzCount} • NETWORK: ${value}%`;
-                        break;
-                    default:
-                        content = `OPERATIONAL STATUS: ACTIVE`;
-                }
-                
-                dataElement.textContent = content;
-                
-                if (mode !== 'overview') {
-                    dataElement.classList.add('visible');
-                } else {
-                    dataElement.classList.remove('visible');
-                }
-            });
-        }
-
-        function updateConnections(mode) {
-            // Hide all connections first
-            document.querySelectorAll('.connection-line, .transport-hub, .tmz-connection').forEach(el => {
-                el.classList.remove('active', 'visible');
-            });
-            
-            if (mode === 'transport') {
-                // Show transport hubs and internal connections
-                document.querySelectorAll('.transport-hub').forEach(hub => {
-                    hub.classList.add('visible');
-                });
-                
-                // Show connection lines between sectors
-                const connections = [
-                    {from: '1', to: '2', line: 'line-1-2'},
-                    {from: '1', to: '4', line: 'line-1-4'},
-                    {from: '2', to: '3', line: 'line-2-3'},
-                    {from: '3', to: '6', line: 'line-3-6'},
-                    {from: '4', to: '5', line: 'line-4-5'},
-                    {from: '4', to: '7', line: 'line-4-7'},
-                    {from: '5', to: '8', line: 'line-5-8'},
-                    {from: '7', to: '8', line: 'line-7-8'},
-                    {from: '6', to: 'wasteland', line: 'line-6-9'}
-                ];
-                
-                connections.forEach(conn => {
-                    const lineElement = document.getElementById(conn.line);
-                    if (lineElement) {
-                        lineElement.classList.add('active');
-                        // Position the line between sectors (simplified positioning)
-                        positionConnectionLine(lineElement, conn.from, conn.to);
-                    }
-                });
-                
-            } else if (mode === 'tmz') {
-                // Show TMZ connections to other cities
-                document.querySelectorAll('.tmz-connection').forEach(tmz => {
-                    tmz.classList.add('active');
-                });
-            }
-        }
-
-        function positionConnectionLine(lineElement, fromSector, toSector) {
-            // Simplified positioning for connection lines
-            // In a real implementation, you'd calculate exact positions
-            const positions = {
-                '1': {top: 50, left: 50},
-                '2': {top: 17, left: 50},
-                '3': {top: 17, left: 83},
-                '4': {top: 50, left: 17},
-                '5': {top: 83, left: 17},
-                '6': {top: 83, left: 50},
-                '7': {top: 83, left: 83},
-                '8': {top: 50, left: 83},
-                'wasteland': {top: 17, left: 17}
-            };
-            
-            const fromPos = positions[fromSector];
-            const toPos = positions[toSector];
-            
-            if (fromPos && toPos) {
-                const deltaX = toPos.left - fromPos.left;
-                const deltaY = toPos.top - fromPos.top;
-                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
-                
-                lineElement.style.left = fromPos.left + '%';
-                lineElement.style.top = fromPos.top + '%';
-                lineElement.style.width = distance + '%';
-                lineElement.style.transform = `rotate(${angle}deg)`;
-                lineElement.style.transformOrigin = '0 50%';
-            }
-        }
-
-        // Control panel interactions
+    // Mode switching with dramatic visual changes
+    function switchMode(mode) {
+        if (isTransitioning || mode === currentMode) return;
+        
+        isTransitioning = true;
+        currentMode = mode;
+        
+        // Update control buttons
         document.querySelectorAll('.control-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                switchMode(btn.dataset.mode);
-            });
+            btn.classList.toggle('active', btn.dataset.mode === mode);
         });
+        
+        // Update mode indicator
+        const indicator = document.getElementById('modeIndicator');
+        const modeInfo = modeData[mode];
+        indicator.textContent = modeInfo.label;
+        indicator.style.borderColor = modeInfo.color;
+        indicator.style.color = modeInfo.color;
+        
+        // Update body class for mode-specific styling
+        document.body.className = `mode-${mode}`;
+        
+        // Update sector visuals and data
+        updateSectorVisuals(mode);
+        updateSectorData(mode);
+        updateConnections(mode);
+        
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 1200);
+    }
 
-        function showSectorInfo(sectorId) {
+    function updateSectorVisuals(mode) {
+        const sectors = document.querySelectorAll('.sector');
+        const modeColor = modeData[mode].color;
+        
+        sectors.forEach(sector => {
+            const sectorId = sector.dataset.sector;
             const data = sectorData[sectorId];
-            if (!data) return;
             
-            const panel = document.getElementById('infoPanel');
-            const title = document.getElementById('infoTitle');
-            const description = document.getElementById('infoDescription');
-            const specs = document.getElementById('infoSpecs');
+            if (!data || !data.stats) return;
             
-            title.textContent = data.title;
-            description.textContent = data.description;
+            let intensity = data.stats[mode] / 100;
+            let alpha = Math.max(0.1, intensity);
             
-            // Build specs
-            specs.innerHTML = '';
+            // Convert hex to rgb for alpha manipulation
+            const r = parseInt(modeColor.slice(1, 3), 16);
+            const g = parseInt(modeColor.slice(3, 5), 16);
+            const b = parseInt(modeColor.slice(5, 7), 16);
             
-            // Add danger warning if applicable
-            if (data.danger) {
-                const warning = document.createElement('div');
-                warning.className = 'danger-warning';
-                warning.innerHTML = '⚠️ <strong>EXTREME DANGER:</strong> This area poses critical risks to all personnel. Unauthorized access is strictly prohibited and may result in temporal displacement, reality fragmentation, or complete erasure from existence.';
-                specs.appendChild(warning);
-            }
-            
-            // Basic specs section
-            const basicSection = document.createElement('div');
-            basicSection.className = 'spec-section';
-            basicSection.innerHTML = '<h3>BASIC INFORMATION</h3>';
-            
-            Object.entries(data.specs).forEach(([key, value]) => {
-                const specItem = document.createElement('div');
-                specItem.className = 'spec-item';
-                specItem.innerHTML = `
-                    <span class="spec-label">${key}:</span>
-                    <span class="spec-value">${value}</span>
-                `;
-                basicSection.appendChild(specItem);
-            });
-            specs.appendChild(basicSection);
-            
-            // Mode-specific analysis
-            if (currentMode !== 'overview') {
-                const modeSection = document.createElement('div');
-                modeSection.className = 'spec-section';
-                modeSection.innerHTML = `<h3>${modeData[currentMode].label}</h3>`;
+            if (mode !== 'overview') {
+                sector.style.borderColor = `rgba(${r}, ${g}, ${b}, ${alpha * 0.9})`;
+                sector.style.background = `linear-gradient(135deg, 
+                    rgba(${r}, ${g}, ${b}, ${alpha * 0.15}) 0%, 
+                    rgba(0, 0, 0, 0.8) 50%,
+                    rgba(${r}, ${g}, ${b}, ${alpha * 0.1}) 100%)`;
                 
-                const modeDesc = document.createElement('div');
-                modeDesc.style.cssText = 'color: rgba(135, 206, 235, 0.8); font-size: 11px; margin-bottom: 15px; line-height: 1.4;';
-                modeDesc.textContent = modeData[currentMode].description;
-                modeSection.appendChild(modeDesc);
-                
-                if (data.stats) {
-                    const statValue = data.stats[currentMode];
-                    const statItem = document.createElement('div');
-                    statItem.className = 'spec-item';
-                    statItem.innerHTML = `
-                        <span class="spec-label">${modeData[currentMode].label} Rating:</span>
-                        <span class="spec-value">${statValue}/100</span>
-                    `;
-                    modeSection.appendChild(statItem);
-                    
-                    // Add mode-specific details
-                    if (currentMode === 'transport' && data.connections) {
-                        const connItem = document.createElement('div');
-                        connItem.className = 'spec-item';
-                        connItem.innerHTML = `
-                            <span class="spec-label">Connected Sectors:</span>
-                            <span class="spec-value">${data.connections.join(', ')}</span>
-                        `;
-                        modeSection.appendChild(connItem);
-                        
-                        if (data.transportHubs && data.transportHubs.length > 0) {
-                            const hubItem = document.createElement('div');
-                            hubItem.className = 'spec-item';
-                            hubItem.innerHTML = `
-                                <span class="spec-label">Transport Hubs:</span>
-                                <span class="spec-value">${data.transportHubs.length} Active</span>
-                            `;
-                            modeSection.appendChild(hubItem);
-                        }
-                    }
-                    
-                    if (currentMode === 'tmz' && data.tmzConnections) {
-                        const tmzItem = document.createElement('div');
-                        tmzItem.className = 'spec-item';
-                        tmzItem.innerHTML = `
-                            <span class="spec-label">TMZ Network:</span>
-                            <span class="spec-value">${data.tmzConnections.length} Connections</span>
-                        `;
-                        modeSection.appendChild(tmzItem);
-                        
-                        data.tmzConnections.forEach(tmz => {
-                            const tmzDetail = document.createElement('div');
-                            tmzDetail.className = 'spec-item';
-                            tmzDetail.style.borderBottom = 'none';
-                            tmzDetail.style.fontSize = '9px';
-                            tmzDetail.style.color = 'rgba(135, 206, 235, 0.7)';
-                            tmzDetail.innerHTML = `
-                                <span style="color: #00d4ff;">→</span>
-                                <span>${tmz}</span>
-                            `;
-                            modeSection.appendChild(tmzDetail);
-                        });
-                    }
+                // Update status indicator
+                const statusIndicator = sector.querySelector('.sector-status');
+                if (statusIndicator) {
+                    statusIndicator.style.background = `radial-gradient(circle, rgba(${r}, ${g}, ${b}, 1) 0%, rgba(${r}, ${g}, ${b}, 0.7) 100%)`;
+                    statusIndicator.style.boxShadow = `0 0 ${15 + intensity * 10}px rgba(${r}, ${g}, ${b}, ${alpha})`;
                 }
-                
-                specs.appendChild(modeSection);
-            }
-            
-            // Transport details section
-            if (currentMode === 'transport' || currentMode === 'tmz') {
-                const transportSection = document.createElement('div');
-                transportSection.className = 'spec-section';
-                transportSection.innerHTML = '<h3>TRANSPORT INFORMATION</h3>';
-                
-                if (currentMode === 'transport') {
-                    const transportInfo = document.createElement('div');
-                    transportInfo.style.cssText = 'color: rgba(135, 206, 235, 0.8); font-size: 11px; line-height: 1.4;';
-                    transportInfo.innerHTML = `
-                        <strong>Chrono-Rail System:</strong> Quantum-levitation trains travel at 737 km/h while experiencing only 7% temporal passage. All citizens undergo temporal adjustment protocols before boarding.<br><br>
-                        <strong>Transit Security:</strong> Reality verification chambers scan all passengers. Temporal signatures monitored continuously during travel.<br><br>
-                        <strong>Hub Operations:</strong> Major transport hubs feature temporal isolation chambers and emergency quantum teleportation for CHRONOS officials.
-                    `;
-                    transportSection.appendChild(transportInfo);
-                } else if (currentMode === 'tmz') {
-                    const tmzInfo = document.createElement('div');
-                    tmzInfo.style.cssText = 'color: rgba(135, 206, 235, 0.8); font-size: 11px; line-height: 1.4;';
-                    tmzInfo.innerHTML = `
-                        <strong>TMZ Network:</strong> Global network of 127 Temporal Metropolitan Zones connected by stabilized quantum corridors.<br><br>
-                        <strong>Travel Requirements:</strong> Level 3+ temporal clearance required for inter-TMZ travel. 24-hour temporal readjustment period mandatory after arrival.<br><br>
-                        <strong>Quantum Teleportation:</strong> Available only to highest CHRONOS officials. Limited to 7 uses per individual per year due to temporal signature degradation.
-                    `;
-                    transportSection.appendChild(tmzInfo);
+            } else {
+                // Reset to default styling
+                sector.style.borderColor = '';
+                sector.style.background = '';
+                const statusIndicator = sector.querySelector('.sector-status');
+                if (statusIndicator) {
+                    statusIndicator.style.background = '';
+                    statusIndicator.style.boxShadow = '';
                 }
-                
-                specs.appendChild(transportSection);
             }
-            
-            panel.classList.add('active');
-        }
-
-        function closeInfo() {
-            document.getElementById('infoPanel').classList.remove('active');
-        }
-
-        function toggleHelp() {
-            // This function is now replaced by openWorldGuide()
-            openWorldGuide();
-        }
-
-        function openWorldGuide() {
-            const modal = document.getElementById('worldGuideModal');
-            modal.classList.add('active');
-            
-            // Trigger animations after modal appears
-            setTimeout(() => {
-                // Reset and restart clock animation
-                const clockAnimation = modal.querySelector('.temporal-clock-animation');
-                clockAnimation.style.animation = 'none';
-                clockAnimation.offsetHeight; // Trigger reflow
-                clockAnimation.style.animation = 'clockAppear 2s ease-out forwards';
-                
-                // Reset and restart energy particles
-                const particles = modal.querySelectorAll('.energy-particle');
-                particles.forEach((particle, index) => {
-                    particle.style.animation = 'none';
-                    particle.offsetHeight; // Trigger reflow
-                    particle.style.animation = `energyFloat 3s ease-in-out infinite ${index * 0.5}s`;
-                });
-                
-                // Reset and restart section animations
-                const sections = modal.querySelectorAll('.guide-section');
-                sections.forEach((section, index) => {
-                    section.style.animation = 'none';
-                    section.offsetHeight; // Trigger reflow
-                    section.style.animation = `sectionAppear 0.8s ease-out forwards ${0.2 + index * 0.2}s`;
-                });
-            }, 100);
-        }
-
-        function closeWorldGuide() {
-            const modal = document.getElementById('worldGuideModal');
-            modal.classList.remove('active');
-        }
-
-        // Sector interactions
-        document.querySelectorAll('.sector').forEach(sector => {
-            sector.addEventListener('click', () => {
-                sector.classList.add('tapped');
-                setTimeout(() => sector.classList.remove('tapped'), 400);
-                
-                const sectorId = sector.dataset.sector;
-                showSectorInfo(sectorId);
-            });
         });
+    }
 
-        // Update status with more dynamic information
-        function updateStatus() {
-            const status = document.querySelector('.header .status');
-            if (!status) return;
+    function updateSectorData(mode) {
+        const sectors = document.querySelectorAll('.sector');
+        
+        sectors.forEach(sector => {
+            const sectorId = sector.dataset.sector;
+            const data = sectorData[sectorId];
+            const dataElement = sector.querySelector('.sector-data');
             
-            const time = new Date().toLocaleTimeString('en-US', { 
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
+            if (!data || !data.stats || !dataElement) return;
+            
+            let content = '';
+            const value = data.stats[mode];
+            
+            switch(mode) {
+                case 'security':
+                    content = `THREAT: ${value > 80 ? 'MAX' : value > 60 ? 'HIGH' : value > 40 ? 'MED' : 'LOW'} • ${value}/100`;
+                    break;
+                case 'population':
+                    const popText = value > 80 ? 'DENSE' : value > 60 ? 'MODERATE' : value > 20 ? 'SPARSE' : 'MINIMAL';
+                    content = `DENSITY: ${popText} • ${value}%`;
+                    break;
+                case 'temporal':
+                    content = `STABILITY: ${value > 90 ? 'STABLE' : value > 70 ? 'MODERATE' : value > 50 ? 'UNSTABLE' : 'CRITICAL'} • ${value}%`;
+                    break;
+                case 'transport':
+                    const connections = data.connections ? data.connections.length : 0;
+                    const hubs = data.transportHubs ? data.transportHubs.length : 0;
+                    content = `ROUTES: ${connections} • HUBS: ${hubs} • RATING: ${value}%`;
+                    break;
+                case 'economy':
+                    const ecoText = value > 80 ? 'THRIVING' : value > 60 ? 'STABLE' : value > 40 ? 'STRUGGLING' : 'POOR';
+                    content = `STATUS: ${ecoText} • INDEX: ${value}`;
+                    break;
+                case 'tmz':
+                    const tmzCount = data.tmzConnections ? data.tmzConnections.length : 0;
+                    content = `TMZ LINKS: ${tmzCount} • NETWORK: ${value}%`;
+                    break;
+                default:
+                    content = `OPERATIONAL STATUS: ACTIVE`;
+            }
+            
+            dataElement.textContent = content;
+            
+            if (mode !== 'overview') {
+                dataElement.classList.add('visible');
+            } else {
+                dataElement.classList.remove('visible');
+            }
+        });
+    }
+
+    function updateConnections(mode) {
+        // Hide all connections first
+        document.querySelectorAll('.connection-line, .transport-hub, .tmz-connection').forEach(el => {
+            el.classList.remove('active', 'visible');
+        });
+        
+        if (mode === 'transport') {
+            // Show transport hubs and internal connections
+            document.querySelectorAll('.transport-hub').forEach(hub => {
+                hub.classList.add('visible');
             });
             
-            const population = '2.7M';
-            const anomalies = Math.floor(Math.random() * 5) + 15; // 15-19 anomalies
-            const tmzStatus = ['ACTIVE', 'MONITORING', 'SYNCHRONIZED'][Math.floor(Math.random() * 3)];
+            // Show connection lines between sectors (fixed to match actual connections)
+            const connections = [
+                {line: 'line-2-1', from: '2', to: '1'},  // Research to Central
+                {line: 'line-1-4', from: '1', to: '4'},  // Central to Residential
+                {line: 'line-1-8', from: '1', to: '8'},  // Central to Boundary
+                {line: 'line-2-3', from: '2', to: '3'},  // Research to Elite
+                {line: 'line-4-5', from: '4', to: '5'},  // Residential to Manufacturing
+                {line: 'line-5-7', from: '5', to: '7'},  // Manufacturing to Containment
+                {line: 'line-7-6', from: '7', to: '6'},  // Containment to Agricultural
+                {line: 'line-6-8', from: '6', to: '8'},  // Agricultural to Boundary
+                {line: 'line-8-3', from: '8', to: '3'}   // Boundary to Elite
+            ];
             
-            status.textContent = `TMZ • CHRONOS CONTROL ${tmzStatus} • POP: ${population} • ANOMALIES: ${anomalies} • ${time}`;
+            connections.forEach(conn => {
+                const lineElement = document.getElementById(conn.line);
+                if (lineElement) {
+                    lineElement.classList.add('active');
+                    positionConnectionLine(lineElement, conn.from, conn.to);
+                }
+            });
+            
+        } else if (mode === 'tmz') {
+            // Show TMZ connections to other cities
+            document.querySelectorAll('.tmz-connection').forEach(tmz => {
+                tmz.classList.add('active');
+            });
         }
+    }
 
-        // Touch gestures for mobile navigation
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-
-        document.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            const deltaX = touchEndX - touchStartX;
-            const minSwipeDistance = 80;
+    function positionConnectionLine(lineElement, fromSector, toSector) {
+        // Grid positions (3x3 grid)
+        const positions = {
+            'wasteland': {top: 16.5, left: 16.5},
+            '2': {top: 16.5, left: 50},
+            '3': {top: 16.5, left: 83.5},
+            '4': {top: 50, left: 16.5},
+            '1': {top: 50, left: 50},
+            '8': {top: 50, left: 83.5},
+            '5': {top: 83.5, left: 16.5},
+            '7': {top: 83.5, left: 50},
+            '6': {top: 83.5, left: 83.5}
+        };
+        
+        const fromPos = positions[fromSector];
+        const toPos = positions[toSector];
+        
+        if (fromPos && toPos) {
+            const deltaX = toPos.left - fromPos.left;
+            const deltaY = toPos.top - fromPos.top;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
             
-            if (Math.abs(deltaX) > minSwipeDistance) {
-                const modes = ['overview', 'security', 'population', 'temporal', 'transport', 'economy', 'tmz'];
-                const currentIndex = modes.indexOf(currentMode);
+            lineElement.style.left = fromPos.left + '%';
+            lineElement.style.top = fromPos.top + '%';
+            lineElement.style.width = distance + '%';
+            lineElement.style.transform = `rotate(${angle}deg)`;
+            lineElement.style.transformOrigin = '0 50%';
+        }
+    }
+
+    // Control panel interactions
+    document.querySelectorAll('.control-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            switchMode(btn.dataset.mode);
+        });
+    });
+
+    function showSectorInfo(sectorId) {
+        const data = sectorData[sectorId];
+        if (!data) return;
+        
+        const panel = document.getElementById('infoPanel');
+        const title = document.getElementById('infoTitle');
+        const description = document.getElementById('infoDescription');
+        const specs = document.getElementById('infoSpecs');
+        
+        title.textContent = data.title;
+        description.textContent = data.description;
+        
+        // Build specs
+        specs.innerHTML = '';
+        
+        // Add danger warning if applicable
+        if (data.danger) {
+            const warning = document.createElement('div');
+            warning.className = 'danger-warning';
+            warning.innerHTML = '⚠️ <strong>EXTREME DANGER:</strong> This area poses critical risks to all personnel. Unauthorized access is strictly prohibited and may result in temporal displacement, reality fragmentation, or complete erasure from existence.';
+            specs.appendChild(warning);
+        }
+        
+        // Basic specs section
+        const basicSection = document.createElement('div');
+        basicSection.className = 'spec-section';
+        basicSection.innerHTML = '<h3>BASIC INFORMATION</h3>';
+        
+        Object.entries(data.specs).forEach(([key, value]) => {
+            const specItem = document.createElement('div');
+            specItem.className = 'spec-item';
+            specItem.innerHTML = `
+                <span class="spec-label">${key}:</span>
+                <span class="spec-value">${value}</span>
+            `;
+            basicSection.appendChild(specItem);
+        });
+        specs.appendChild(basicSection);
+        
+        // Mode-specific analysis
+        if (currentMode !== 'overview') {
+            const modeSection = document.createElement('div');
+            modeSection.className = 'spec-section';
+            modeSection.innerHTML = `<h3>${modeData[currentMode].label}</h3>`;
+            
+            const modeDesc = document.createElement('div');
+            modeDesc.style.cssText = 'color: rgba(135, 206, 235, 0.8); font-size: 11px; margin-bottom: 15px; line-height: 1.4;';
+            modeDesc.textContent = modeData[currentMode].description;
+            modeSection.appendChild(modeDesc);
+            
+            if (data.stats) {
+                const statValue = data.stats[currentMode];
+                const statItem = document.createElement('div');
+                statItem.className = 'spec-item';
+                statItem.innerHTML = `
+                    <span class="spec-label">${modeData[currentMode].label} Rating:</span>
+                    <span class="spec-value">${statValue}/100</span>
+                `;
+                modeSection.appendChild(statItem);
                 
-                if (deltaX > 0 && currentIndex > 0) {
-                    switchMode(modes[currentIndex - 1]);
-                } else if (deltaX < 0 && currentIndex < modes.length - 1) {
-                    switchMode(modes[currentIndex + 1]);
+                // Add mode-specific details
+                if (currentMode === 'transport' && data.connections) {
+                    const connItem = document.createElement('div');
+                    connItem.className = 'spec-item';
+                    connItem.innerHTML = `
+                        <span class="spec-label">Connected Sectors:</span>
+                        <span class="spec-value">${data.connections.join(', ')}</span>
+                    `;
+                    modeSection.appendChild(connItem);
+                    
+                    if (data.transportHubs && data.transportHubs.length > 0) {
+                        const hubItem = document.createElement('div');
+                        hubItem.className = 'spec-item';
+                        hubItem.innerHTML = `
+                            <span class="spec-label">Transport Hubs:</span>
+                            <span class="spec-value">${data.transportHubs.length} Active</span>
+                        `;
+                        modeSection.appendChild(hubItem);
+                    }
+                }
+                
+                if (currentMode === 'tmz' && data.tmzConnections) {
+                    const tmzItem = document.createElement('div');
+                    tmzItem.className = 'spec-item';
+                    tmzItem.innerHTML = `
+                        <span class="spec-label">TMZ Network:</span>
+                        <span class="spec-value">${data.tmzConnections.length} Connections</span>
+                    `;
+                    modeSection.appendChild(tmzItem);
+                    
+                    data.tmzConnections.forEach(tmz => {
+                        const tmzDetail = document.createElement('div');
+                        tmzDetail.className = 'spec-item';
+                        tmzDetail.style.borderBottom = 'none';
+                        tmzDetail.style.fontSize = '9px';
+                        tmzDetail.style.color = 'rgba(135, 206, 235, 0.7)';
+                        tmzDetail.innerHTML = `
+                            <span style="color: #00d4ff;">→</span>
+                            <span>${tmz}</span>
+                        `;
+                        modeSection.appendChild(tmzDetail);
+                    });
                 }
             }
-        }, { passive: true });
-
-        // Initialize application
-        function init() {
-            createParticles();
-            updateStatus();
-            setInterval(updateStatus, 3000);
             
-            // Initialize with overview mode
-            updateSectorData('overview');
-            
-            // Add dramatic startup animation
-            setTimeout(() => {
-                document.querySelectorAll('.sector').forEach((sector, index) => {
-                    setTimeout(() => {
-                        sector.style.transform = 'scale(1.1) rotateY(10deg)';
-                        sector.style.filter = 'brightness(1.3)';
-                        setTimeout(() => {
-                            sector.style.transform = '';
-                            sector.style.filter = '';
-                        }, 300);
-                    }, index * 120);
-                });
-            }, 1000);
-            
-            // Periodic visual enhancements
-            setInterval(() => {
-                const randomSector = document.querySelectorAll('.sector')[Math.floor(Math.random() * 9)];
-                const originalTransform = randomSector.style.transform;
-                randomSector.style.transform = 'scale(1.02)';
-                randomSector.style.filter = 'brightness(1.1)';
-                setTimeout(() => {
-                    randomSector.style.transform = originalTransform;
-                    randomSector.style.filter = '';
-                }, 800);
-            }, 15000);
+            specs.appendChild(modeSection);
         }
+        
+        panel.classList.add('active');
+    }
 
-        // Prevent zoom on mobile
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', (e) => {
-            const now = Date.now();
-            if (now - lastTouchEnd <= 300) {
-                e.preventDefault();
+    function closeInfo() {
+        document.getElementById('infoPanel').classList.remove('active');
+    }
+
+    function openWorldGuide() {
+        const modal = document.getElementById('worldGuideModal');
+        modal.classList.add('active');
+        
+        // Trigger animations after modal appears
+        setTimeout(() => {
+            // Reset and restart clock animation
+            const clockAnimation = modal.querySelector('.temporal-clock-animation');
+            clockAnimation.style.animation = 'none';
+            clockAnimation.offsetHeight; // Trigger reflow
+            clockAnimation.style.animation = 'clockAppear 2s ease-out forwards';
+            
+            // Reset and restart energy particles
+            const particles = modal.querySelectorAll('.energy-particle');
+            particles.forEach((particle, index) => {
+                particle.style.animation = 'none';
+                particle.offsetHeight; // Trigger reflow
+                particle.style.animation = `energyFloat 3s ease-in-out infinite ${index * 0.5}s`;
+            });
+            
+            // Reset and restart section animations
+            const sections = modal.querySelectorAll('.guide-section');
+            sections.forEach((section, index) => {
+                section.style.animation = 'none';
+                section.offsetHeight; // Trigger reflow
+                section.style.animation = `sectionAppear 0.8s ease-out forwards ${0.2 + index * 0.2}s`;
+            });
+        }, 100);
+    }
+
+    function closeWorldGuide() {
+        const modal = document.getElementById('worldGuideModal');
+        modal.classList.remove('active');
+    }
+
+    // Sector interactions
+    document.querySelectorAll('.sector').forEach(sector => {
+        sector.addEventListener('click', () => {
+            sector.classList.add('tapped');
+            setTimeout(() => sector.classList.remove('tapped'), 400);
+            
+            const sectorId = sector.dataset.sector;
+            showSectorInfo(sectorId);
+        });
+    });
+
+    // Update status with more dynamic information
+    function updateStatus() {
+        const status = document.querySelector('.header .status');
+        if (!status) return;
+        
+        const time = new Date().toLocaleTimeString('en-US', { 
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        const population = '2.7M';
+        const anomalies = Math.floor(Math.random() * 5) + 15; // 15-19 anomalies
+        const tmzStatus = ['ACTIVE', 'MONITORING', 'SYNCHRONIZED'][Math.floor(Math.random() * 3)];
+        
+        status.textContent = `TMZ • CHRONOS CONTROL ${tmzStatus} • POP: ${population} • ANOMALIES: ${anomalies} • ${time}`;
+    }
+
+    // Touch gestures for mobile navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const deltaX = touchEndX - touchStartX;
+        const minSwipeDistance = 80;
+        
+        if (Math.abs(deltaX) > minSwipeDistance) {
+            const modes = ['overview', 'security', 'population', 'temporal', 'transport', 'economy', 'tmz'];
+            const currentIndex = modes.indexOf(currentMode);
+            
+            if (deltaX > 0 && currentIndex > 0) {
+                switchMode(modes[currentIndex - 1]);
+            } else if (deltaX < 0 && currentIndex < modes.length - 1) {
+                switchMode(modes[currentIndex + 1]);
             }
-            lastTouchEnd = now;
-        }, false);
+        }
+    }, { passive: true });
 
-        // Start the application
-        init();
+    // Initialize application
+    function init() {
+        createParticles();
+        updateStatus();
+        setInterval(updateStatus, 3000);
+        
+        // Initialize with overview mode
+        updateSectorData('overview');
+        
+        // Add dramatic startup animation
+        setTimeout(() => {
+            document.querySelectorAll('.sector').forEach((sector, index) => {
+                setTimeout(() => {
+                    sector.style.transform = 'scale(1.1) rotateY(10deg)';
+                    sector.style.filter = 'brightness(1.3)';
+                    setTimeout(() => {
+                        sector.style.transform = '';
+                        sector.style.filter = '';
+                    }, 300);
+                }, index * 120);
+            });
+        }, 1000);
+        
+        // Periodic visual enhancements
+        setInterval(() => {
+            const randomSector = document.querySelectorAll('.sector')[Math.floor(Math.random() * 9)];
+            const originalTransform = randomSector.style.transform;
+            randomSector.style.transform = 'scale(1.02)';
+            randomSector.style.filter = 'brightness(1.1)';
+            setTimeout(() => {
+                randomSector.style.transform = originalTransform;
+                randomSector.style.filter = '';
+            }, 800);
+        }, 15000);
+    }
 
-        console.log('🌆 Boston Prime TMZ Interface Online');
-        console.log('⏰ CHRONOS Control Systems Active');
-        console.log('🔍 8 Sectors + Wasteland Mapped');
-        console.log('🚊 Transport Network Visualized');
-        console.log('🌐 TMZ Global Network Connected');
-        console.log('⚠️ Quantum Wasteland Monitoring Active');
-        console.log('📊 Multi-Mode Analysis Ready');
-    </script>
+    // Prevent zoom on mobile
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            e.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+
+    // Start the application
+    init();
+
+    console.log('🌆 Boston Prime TMZ Interface Online - FIXED VERSION');
+    console.log('⏰ CHRONOS Control Systems Active');
+    console.log('🔍 8 Sectors + Wasteland Mapped');
+    console.log('🚊 Transport Network Fixed & Visualized');
+    console.log('🌐 TMZ Global Network Connected');
+    console.log('⚠️ Quantum Wasteland Monitoring Active');
+    console.log('📊 Multi-Mode Analysis Ready');
+    console.log('✅ White block removed, transport lines fixed');
+</script>
 </body>
 </html>
